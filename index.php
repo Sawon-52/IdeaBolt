@@ -1,97 +1,193 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- tailwind cdn -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- daisy ui cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+     <!-- google font link  -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
     <title>Home | ideaBolt</title>
-</head>
-<body>
-<div class="bg-white">
-  <header class="absolute inset-x-0 top-0 z-50">
-    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-      <div class="flex lg:flex-1">
-        <a href="#" class="-m-1.5 p-1.5">
-          <span class="sr-only">Your Company</span>
-          <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="">
-        </a>
-      </div>
-      <div class="flex lg:hidden">
-        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-          <span class="sr-only">Open main menu</span>
-          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        </button>
-      </div>
-      <div class="hidden lg:flex lg:gap-x-12">
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Product</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Features</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Marketplace</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Company</a>
-      </div>
-      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
-      </div>
-    </nav>
-    <!-- Mobile menu, show/hide based on menu open state. -->
-    <div class="lg:hidden" role="dialog" aria-modal="true">
-      <!-- Background backdrop, show/hide based on slide-over state. -->
-      <div class="fixed inset-0 z-50"></div>
-      <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-        <div class="flex items-center justify-between">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="">
-          </a>
-          <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-            <span class="sr-only">Close menu</span>
-            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <div class="mt-6 flow-root">
-          <div class="-my-6 divide-y divide-gray-500/10">
-            <div class="space-y-2 py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Product</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Features</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Marketplace</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Company</a>
+  </head>
+  <body>
+    <header class="sticky top-0 bg-slate-900 z-10">
+      <!-- navber -->
+      <nav class="max-w-screen-xl mx-auto">
+        <div class="navbar text-white py-3">
+          <div class="navbar-start">
+            <div class="dropdown bg-slate-900">
+              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+              </div>
+              <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow bg-slate-900 border text-xl">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/blog.html">Blog</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+              </ul>
             </div>
-            <div class="py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Log in</a>
+            <a class="text-3xl font-bold">idea<span class="text-orange-500">Bolt</span></a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 text-xl">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/blog.html">Blog</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a class="btn bg-orange-500 text-white text-xl">login</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!----hero section --->
+    <section class="bg-gray-800 text-white">
+      <div class="max-w-screen-xl mx-auto min-h-[400px] flex flex-col justify-center items-center">
+        <div class="text-center max-w-4xl">
+          <h1 class="text-4xl md:text-6xl font-semibold mb-5">Welcome To Our Blog</h1>
+          <p class="text-lg text-gray-400 mb-8">Revision Welcomes to ultimate source for fresh perspectives!.</p>
+          <a href="blog.html" class="btn bg-slate-900 text-white text-xl">Explore</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- main section -->
+    <main class="flex flex-col justify-center bg-stone-100">
+      <section class="max-w-screen-xl mx-auto my-10">
+        <!-- category -->
+        <div class="flex flex-col items-center space-y-10">
+          <h2 class="uppercase font-bold text-xl">Explore Trending Topics</h2>
+
+          <div class="flex gap-5 items-center flex-wrap max-w-3xl justify-center cursor-pointer">
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-laptop mr-1"></i> Technology</div>
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-plane"></i> Travel</div>
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-futbol"></i> Sport</div>
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-newspaper"></i> News</div>
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-briefcase"></i> Business</div>
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-signal"></i> Startups</div>
+            <div class="text-xl border p-3 rounded-full px-4 font-bold hover:bg-slate-200"><i class="fa-solid fa-bowl-food"></i> Food</div>
+          </div>
+        </div>
+
+        <!-- blog card -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-5 py-10">
+          <div class="relative bg-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row">
+            <img src="https://placehold.co/600x400/FF5733/FFFFFF?text=Radio" alt="Radio" class="w-full md:w-1/2 object-cover" />
+            <div class="p-6 w-full md:w-1/2">
+              <p class="text-gray-400 text-sm mb-2">Ethan Caldwell on October 16, 2024</p>
+              <div class="absolute left-4 top-4 flex space-x-2 mb-4">
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">Business</span>
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">News</span>
+              </div>
+              <h2 class="text-white text-xl font-semibold mb-2">How Tech Shapes the Future of Work in 2024</h2>
+              <p class="text-gray-300 mb-4">In today's ever-evolving world, storytelling has become a powerful tool for connection. Revision provides a unique platform for individuals to...</p>
+              <a href="#" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full inline-block">Discover More</a>
+            </div>
+          </div>
+
+          <div class="relative bg-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row">
+            <img src="https://placehold.co/600x400/FF5733/FFFFFF?text=Radio" alt="Radio" class="w-full md:w-1/2 object-cover" />
+            <div class="p-6 w-full md:w-1/2">
+              <p class="text-gray-400 text-sm mb-2">Ethan Caldwell on October 16, 2024</p>
+              <div class="absolute left-4 top-4 flex space-x-2 mb-4">
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">Business</span>
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">News</span>
+              </div>
+              <h2 class="text-white text-xl font-semibold mb-2">How Tech Shapes the Future of Work in 2024</h2>
+              <p class="text-gray-300 mb-4">In today's ever-evolving world, storytelling has become a powerful tool for connection. Revision provides a unique platform for individuals to...</p>
+              <a href="#" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full inline-block">Discover More</a>
+            </div>
+          </div>
+
+          <div class="relative bg-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row">
+            <img src="https://placehold.co/600x400/FF5733/FFFFFF?text=Radio" alt="Radio" class="w-full md:w-1/2 object-cover" />
+            <div class="p-6 w-full md:w-1/2">
+              <p class="text-gray-400 text-sm mb-2">Ethan Caldwell on October 16, 2024</p>
+              <div class="absolute left-4 top-4 flex space-x-2 mb-4">
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">Business</span>
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">News</span>
+              </div>
+              <h2 class="text-white text-xl font-semibold mb-2">How Tech Shapes the Future of Work in 2024</h2>
+              <p class="text-gray-300 mb-4">In today's ever-evolving world, storytelling has become a powerful tool for connection. Revision provides a unique platform for individuals to...</p>
+              <a href="#" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full inline-block">Discover More</a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </header>
 
-  <div class="relative isolate px-6 pt-14 lg:px-8">
-    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-      <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div>
-    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-      <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-        <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-          Announcing our next round of funding. <a href="#" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
+          <div class="relative bg-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row">
+            <img src="https://placehold.co/600x400/FF5733/FFFFFF?text=Radio" alt="Radio" class="w-full md:w-1/2 object-cover" />
+            <div class="p-6 w-full md:w-1/2">
+              <p class="text-gray-400 text-sm mb-2">Ethan Caldwell on October 16, 2024</p>
+              <div class="absolute left-4 top-4 flex space-x-2 mb-4">
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">Business</span>
+                <span class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold uppercase">News</span>
+              </div>
+              <h2 class="text-white text-xl font-semibold mb-2">How Tech Shapes the Future of Work in 2024</h2>
+              <p class="text-gray-300 mb-4">In today's ever-evolving world, storytelling has become a powerful tool for connection. Revision provides a unique platform for individuals to...</p>
+              <a href="#" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full inline-block">Discover More</a>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- footer  -->
+    <footer class="bg-gray-800 py-12">
+      <div class="max-w-screen-xl mx-auto container flex flex-col md:flex-row justify-between items-center md:items-start">
+        <div class="mb-8 md:mb-0 text-center md:text-left max-w-md">
+          <div class="flex justify-center md:justify-start items-center mb-4">
+            <a class="text-3xl font-bold text-white">idea<span class="text-orange-500">Bolt</span></a>
+          </div>
+          <p class="text-gray-400 mb-4">Welcome to ultimate source for fresh perspectives! Explore curated content to enlighten, entertain and engage global readers.</p>
+          <div class="flex justify-center md:justify-start space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-15 text-center md:text-left text-white">
+          <div>
+            <h3 class="font-semibold mb-4">CATEGORIES</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white">Technology</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white">Travel</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white">Sport</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white"> News</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white"> Business</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white"> Startups</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white"> Food</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold mb-4">PAGES</h3>
+            <ul class="space-y-2">
+              <li><a href="about.html" class="text-gray-400 hover:text-white">About</a></li>
+              <li><a href="blog.html" class="text-gray-400 hover:text-white">Blog</a></li>
+              <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="text-center">
-        <h1 class="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">Data to enrich your online business</h1>
-        <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.</p>
-        <div class="mt-10 flex items-center justify-center gap-x-6">
-          <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
-          <a href="#" class="text-sm/6 font-semibold text-gray-900">Learn more <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </div>
-    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-      <div class="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div>
-  </div>
-</div>
-
-</body>
+      <hr class="border-gray-700 my-8" />
+      <p class="text-center text-sm text-gray-400">&copy; 2025 — Revision. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
