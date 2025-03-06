@@ -1,3 +1,26 @@
+<?php
+include  "../includes/db.php" ;
+// include "../processes/login_process.php"
+
+$error_message = "";
+$email = "";
+$password = ""; 
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Include the login processing logic
+  include "../processes/login_process.php";
+
+  // Repopulate form data if an error occurs
+  if (!empty($error_message)) {
+      $email = htmlspecialchars($_POST["email"]);
+      $password = htmlspecialchars($_POST["password"]);
+  }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,22 +73,34 @@
 
           <div class="flex justify-center py-12">
             <div class="w-sm md:w-md shadow-2xl p-10">
-              <form>
+
+             <!-- Display error message here -->
+              <?php if (!empty($error_message)): ?>
+                  <div id="error-message" class="relative text-red-600   text-center ">
+                      <p><?php echo $error_message; ?></p>
+                  </div>
+              <?php endif; ?>
+
+              <form method="POST">
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Email</p>
-                  <input type="email" placeholder="Email" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
+                  <input type="email" placeholder="Email" name="email" id="email" value="<?php echo "$email" ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
                 </div>
                 <div class="mb-6 relative">
                   <p class="font-semibold mb-1 text-gray-800">Password</p>
-                  <input type="password" placeholder="Enter your password" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  <button type="button" class="absolute right-3 top-14 transform -translate-y-1/2 text-gray-400 hover:text-gray-300">
-                    <i class="fa-solid fa-eye"></i>
-                    <i class="fa-solid fa-eye-slash"></i>
+                  <input type="password" placeholder="Enter your password" id="password" name="password" value="<?php echo "$password" ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
+
+                  <button id="showButton" type="button" class="absolute right-3 top-10 " >
+                    <i class="fa-solid fa-eye" ></i>
+                  </button>
+                  <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
+                    <i class="fa-solid fa-eye-slash" ></i>
                   </button>
                 </div>
 
                 <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Login</button>
               </form>
+
               <p class="text-sm text-gray-400 my-6 text-center">New user? <a href="register.php" class="text-orange-500 hover:text-orange-300">Register</a></p>
             </div>
           </div>
@@ -76,5 +111,6 @@
     <!-- footer  -->
     <?php include 'components/footer.php' ?>
     
+    <script src="assets/js/script.js"></script>
   </body>
 </html>

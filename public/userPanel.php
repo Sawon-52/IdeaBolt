@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,12 +17,12 @@
     <!-- custom css  -->
      <link rel="stylesheet" href="//styles.css">
 
-    <title>Admin| ideaBolt</title>
+    <title>userPanel| ideaBolt</title>
   </head>
   <body class="roboto">
 
      <!-- navber  -->
-     <?php include '../components/navbar.php' ?>
+     <?php include 'components/navbar.php' ?>
 
     <!-- main section -->
     <main class="relative flex flex-col justify-center bg-stone-100 ">
@@ -33,23 +34,24 @@
         <div class="flex min-h-max max-w-screen-xl mx-auto">
           <!-- Sidebar -->
           <aside class="relative w-64 bg-gray-800 p-5 hidden md:block text-white">
-            <h2 class="text-xl font-semibold mb-4">Admin Panel</h2>
+            <h2 class="text-xl font-semibold mb-4">User Panel</h2>
             <ul>
               <li class="mb-2"><a href="#" class="block p-2 bg-orange-500 rounded-sm hover:bg-orange-500">Dashboard</a></li>
               <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
-              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Users</a></li>
-              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Blogs</a></li>
-              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Categories</a></li>
-              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Contact Info</a></li>
+              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Favorite Blogs</a></li>
+              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
+              <li class="mb-2"><a href="#" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
 
               <?php if (isset($_SESSION["user_id"])): ?>
-                <button type="button" class="absolute bottom-6 mb-2 w-[80%]"><a href="../../processes/logout.php" class="block p-2 bg-red-500 hover:opacity-80 rounded-sm text-center ">Logout</a></button>
+                <button type="button" class="absolute bottom-6 mb-2 w-[80%]"><a href="../processes/logout.php" class="block p-2 bg-red-500 hover:opacity-80 rounded-sm text-center ">Logout</a></button>
                 <!-- <a href="processes/logout.php">Logout</a> -->
               <?php else: ?>
                   <!-- Display login button if not logged in -->
                   <button type="button" class="absolute bottom-6 mb-2 w-[80%]"><a href="./processes/logout.php" class="block p-2 bg-orange-500 hover:opacity-80 rounded-sm text-center">Login</a></button>
               <?php endif; ?>
 
+
+              
             </ul>
           </aside>
 
@@ -58,7 +60,7 @@
             <!-- Header -->
             <header class="bg-gray-800 p-4 flex justify-between items-center shadow">
               <input type="text " placeholder="Search..." class="border p-2 w-1/3 rounded text-white" />
-              <button class="bg-blue-500 text-white px-4 py-2 rounded">Create Blog</button>
+              <button class="bg-blue-500 text-white px-4 py-2 rounded">Create</button>
             </header>
 
             <!-- Content -->
@@ -87,7 +89,7 @@
     </main>
 
     <!-- footer  -->
-    <?php include '../components/footer.php' ?>
+    <?php include 'components/footer.php' ?>
     
   </body>
 </html>
