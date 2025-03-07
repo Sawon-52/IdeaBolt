@@ -1,6 +1,6 @@
 <?php
- include __DIR__ . "/../../includes/config.php";
- session_start();
+include __DIR__ . "/../../includes/config.php";
+include  "../../processes/fetch_unique_user.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,10 +74,10 @@
                 <div class="flex flex-col md:flex-row justify-between md:gap-5">
                   <div class="flex items-start justify-between mb-6 border rounded-lg p-4 w-full md:w-1/2">
                       <div class="flex items-center mb-6">
-                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_1j5EelHEOtoLagpQtbwPZdrztpEQL0sJLA&s" alt="Profile Picture" class="w-16 h-16 rounded-full mr-4">
+                          <img src="<?php echo htmlspecialchars($user['email']); ?>" alt="Profile Picture" class="w-16 h-16 rounded-full mr-4 bg-blue-300">
                           <div>
-                              <h3 class="text-lg font-semibold">Mehedi Hasan</h3>
-                              <p class="text-sm text-gray-600">admin@gmail.com</p>
+                              <h3 class="text-lg font-semibold"><?php echo htmlspecialchars($user['username']); ?></h3>
+                              <p class="text-sm text-gray-600"><?php echo htmlspecialchars($user['email']); ?></p>
                           </div>
                       </div>
                   </div>
@@ -85,21 +85,17 @@
                       <div class="grid grid-cols-2 gap-4">
                           <div>
                               <label class="block  font-medium text-gray-700">Name</label>
-                              <p class="mt-1 text-sm">Mehedi</p>
+                              <p class="mt-1 text-sm"><?php echo htmlspecialchars($user['username']); ?></p>
                           </div>
                           
                           <div>
                               <label class="block  font-medium text-gray-700">Email Address</label>
-                              <p class="mt-1 text-sm">admin@gmail.com</p>
+                              <p class="mt-1 text-sm"><?php echo htmlspecialchars($user['email']); ?></p>
                           </div>
-                          
-                          <div>
-                              <label class="block  font-medium text-gray-700">password</label>
-                              <p class="mt-1 text-sm">123</p>
-                          </div>
+
                           <div class="col-span-2">
                               <label class="block  font-medium text-gray-700">Bio</label>
-                              <p class="mt-1 text-sm">HI, I am admin</p>
+                              <p class="mt-1 text-sm"><?php echo htmlspecialchars($user['bio']); ?></p>
                           </div>
                       </div>
                   </div>
@@ -124,11 +120,12 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Name</p>
-                  <input type="text" placeholder="Name" name="name" id="name" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
+                  <input type="text" placeholder="Name" name="name" id="name" value="<?php echo htmlspecialchars($user['username']); ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
                 </div>
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Email</p>
-                  <input type="email" placeholder="Email" name="email" id="email" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
+                  <input type="email" placeholder="Email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" 
+                  class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
                 </div>
               </div>
 
@@ -146,15 +143,16 @@
                 </div>
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Upload Image</p>
-                  <input type="file" class="w-full px-4 py-3 rounded-lg border border-green-700 text-green-900 focus:outline-1 focus:border-indigo-500" />
+                  <input type="file" value="<?php echo htmlspecialchars($user['profile_picture']); ?>" class="w-full px-4 py-3 rounded-lg border border-green-700 text-green-900 focus:outline-1 focus:border-indigo-500" />
                 </div>
               </div>
 
               <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Bio</p>
-                  <textarea type="textarea" placeholder="Bio" name="bio" id="bio" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" ></textarea>
+                  <textarea type="textarea" placeholder="Bio" name="bio" id="bio" value="<?php echo htmlspecialchars($user['bio']); ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" ></textarea>
               </div>
-              <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Save</button>
+              <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">update
+              </button>
             </form>
           </div>
         </div>
@@ -164,3 +162,4 @@
     <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>
 </html>
+
