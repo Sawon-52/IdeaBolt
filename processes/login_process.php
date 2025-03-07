@@ -1,6 +1,7 @@
 <?php
 
 include "../includes/db.php";
+include "../includes/config.php";
 
 $error_message = "";
 
@@ -33,6 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             exit();
         } else {
             $error_message = "Invalid password!";
+            
         }
     } else {
         $error_message = "User not found!";

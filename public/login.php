@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- custom style  -->
     <link rel="stylesheet" href="assets/css/styles.css">
+
+    <script>
+      baseUrl = <?php echo BASE_URL; ?>
+    </script>
 
     <title>Register | ideaBolt</title>
   </head>
@@ -81,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
               <?php endif; ?>
 
-              <form method="POST">
+              <form method="POST" id="login_form">
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Email</p>
                   <input type="email" placeholder="Email" name="email" id="email" value="<?php echo "$email" ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
@@ -110,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- footer  -->
     <?php include 'components/footer.php' ?>
-    
+
     <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>
 </html>

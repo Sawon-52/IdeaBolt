@@ -1,6 +1,8 @@
 <?php
+session_start();
 include __DIR__ . "/../../includes/config.php";
 include  "../../processes/fetch_unique_user.php";
+include  "../../processes/update_user_profile.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +76,7 @@ include  "../../processes/fetch_unique_user.php";
                 <div class="flex flex-col md:flex-row justify-between md:gap-5">
                   <div class="flex items-start justify-between mb-6 border rounded-lg p-4 w-full md:w-1/2">
                       <div class="flex items-center mb-6">
-                          <img src="<?php echo htmlspecialchars($user['email']); ?>" alt="Profile Picture" class="w-16 h-16 rounded-full mr-4 bg-blue-300">
+                          <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture" class="w-16 h-16 rounded-full mr-4 bg-blue-300">
                           <div>
                               <h3 class="text-lg font-semibold"><?php echo htmlspecialchars($user['username']); ?></h3>
                               <p class="text-sm text-gray-600"><?php echo htmlspecialchars($user['email']); ?></p>
@@ -116,7 +118,7 @@ include  "../../processes/fetch_unique_user.php";
         <h3 class="text-lg font-bold">Edit Your Profile</h3>
         <div class="flex justify-center py-10 px-4">
           <div class="w-full">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data"  id="edit-profile-form">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Name</p>
@@ -129,23 +131,15 @@ include  "../../processes/fetch_unique_user.php";
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="mb-6 relative">
-                  <p class="font-semibold mb-1 text-gray-800">Password</p>
-                  <input type="password" placeholder="Enter your password" id="password" name="password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-
-                  <button id="showButton" type="button" class="absolute right-3 top-10 " >
-                    <i class="fa-solid fa-eye" ></i>
-                  </button>
-                  <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
-                    <i class="fa-solid fa-eye-slash" ></i>
-                  </button>
-                </div>
+              <div class="grid grid-cols-1 gap-4">
+                
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Upload Image</p>
-                  <input type="file" value="<?php echo htmlspecialchars($user['profile_picture']); ?>" class="w-full px-4 py-3 rounded-lg border border-green-700 text-green-900 focus:outline-1 focus:border-indigo-500" />
+                  <input type="file" name="profile_picture" value="<?php echo htmlspecialchars($user['profile_picture']); ?>" class="w-full px-4 py-3 rounded-lg border border-green-700 text-green-900 focus:outline-1 focus:border-indigo-500" />
                 </div>
               </div>
+              <!-- Current Profile Picture (hidden field) -->
+              <input type="hidden" name="existing_profile_picture" value="<?php echo htmlspecialchars($user['profile_picture']); ?>"> 
 
               <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Bio</p>

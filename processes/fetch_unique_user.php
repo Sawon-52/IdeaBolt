@@ -1,6 +1,5 @@
 <?php 
 include __DIR__ . "/../includes/db.php";
-session_start();
 // Fetch the logged-in user's data
 if (isset($_SESSION['user_id'])) {
   
