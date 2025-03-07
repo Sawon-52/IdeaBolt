@@ -1,3 +1,6 @@
+<?php
+include __DIR__ . '/../includes/config.php'; 
+?>
 
 <!DOCTYPE html>
 <html lang="en">

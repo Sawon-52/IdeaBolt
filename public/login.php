@@ -1,6 +1,6 @@
 <?php
 include  "../includes/db.php" ;
-// include "../processes/login_process.php"
+include __DIR__ . '/../includes/config.php'; 
 
 $error_message = "";
 $email = "";
@@ -111,6 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- footer  -->
     <?php include 'components/footer.php' ?>
     
-    <script src="assets/js/script.js"></script>
+    <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>
 </html>

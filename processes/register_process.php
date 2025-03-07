@@ -1,7 +1,7 @@
 <?php
 include "../includes/db.php";
 // Initialize error message variable
-session_start();
+
 $error_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,11 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Insert the new user into the database
-            $stmt = $conn->prepare("INSERT INTO users (name, email, hashed_password) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO users (username, email, hashed_password) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $name, $email, $hashed_password);
 
             if ($stmt->execute()) {
                 // Registration successful
+                session_start();
                 $_SESSION["user_id"] = $stmt->insert_id;
                 $_SESSION["user_name"] = $name;
                 $_SESSION["user_role"] = "user"; // Default role for new users

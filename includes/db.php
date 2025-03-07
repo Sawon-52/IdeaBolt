@@ -4,7 +4,7 @@
 $server = "localhost";       
 $username = "root";        
 $password = "";            
-$database = "blog_db"; 
+$database = "ideabolt_db"; 
 
 // Create a connection to the database
 $conn = new mysqli($server, $username, $password, $database);

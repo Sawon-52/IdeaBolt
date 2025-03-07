@@ -1,5 +1,6 @@
 <?php
 include  "../includes/db.php" ;
+include __DIR__ . '/../includes/config.php'; 
 
 // Initialize error message and form data variables
 $error_message = "";
@@ -108,10 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <p class="font-semibold mb-1 text-gray-800">Confirm Password</p>
                   <input type="password" placeholder="Enter your password" name="confirm_password" id="confirm_password" value="<?php echo "$confirm_password" ?>"  class="w-full px-4 py-3 rounded-lg  border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500"  required/>
 
-                  <button id="showButton" type="button" class="absolute right-3 top-10 " >
+                  <button  type="button" class="absolute right-3 top-10 " >
                     <i class="fa-solid fa-eye" ></i>
                   </button>
-                  <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
+                  <button  class="absolute right-3 top-10  hidden " type="button">
                     <i class="fa-solid fa-eye-slash" ></i>
                   </button>
                 </div>
@@ -128,6 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- footer  -->
     <?php include 'components/footer.php' ?>
 
-    <script src="assets/js/script.js"></script>
+    <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>
 </html>

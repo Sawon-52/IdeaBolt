@@ -1,4 +1,6 @@
-
+<?php
+include __DIR__ . '/../../includes/config.php';
+?>
 
 <footer class="bg-gray-800 py-12">
       <div class="max-w-screen-xl mx-auto container flex flex-col md:flex-row justify-between items-center md:items-start">
@@ -31,9 +33,9 @@
           <div>
             <h3 class="font-semibold mb-4">PAGES</h3>
             <ul class="space-y-2">
-              <li><a href="about.php" class="text-gray-400 hover:text-white">About</a></li>
-              <li><a href="blog.php" class="text-gray-400 hover:text-white">Blog</a></li>
-              <li><a href="contact.php" class="text-gray-400 hover:text-white">Contact</a></li>
+              <li><a href="<?php echo BASE_URL; ?>public/about.php" class="text-gray-400 hover:text-white">About</a></li>
+              <li><a href="<?php echo BASE_URL; ?>public/blog.php" class="text-gray-400 hover:text-white">Blog</a></li>
+              <li><a href="<?php echo BASE_URL; ?>public/contact.php" class="text-gray-400 hover:text-white">Contact</a></li>
             </ul>
           </div>
         </div>
