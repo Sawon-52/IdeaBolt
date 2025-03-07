@@ -2,6 +2,7 @@
  include __DIR__ . "/../../includes/config.php";
  session_start();
  include  "../../processes/fetch_all_users.php";
+//  include  "../../processes/delete_single_user.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,8 +105,14 @@
                       <td><?php echo htmlspecialchars($user['role']); ?></td>
                       <th>
                         <div>
-                          <button class="btn btn-ghost btn-xs text-green-800" onclick="edit_user_modal_2.showModal()" >Edit</button>
-                          <button class="btn btn-ghost btn-xs text-red-800">Delete</button>
+                          <!-- <a href="?edit_id=<?php echo $user['id']; ?>" onclick="edit_user_modal_2.showModal()"> hlw</a> -->
+                          <button type="button" class="btn btn-ghost btn-xs text-green-800" onclick="showUserEditModal(<?php echo $user['id']; ?>)" >Edit </button>
+                         
+
+                          <a href="<?php echo BASE_URL; ?>processes/delete_single_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">
+                          <button type="button" class="btn btn-ghost btn-xs text-red-800">Delete</button>
+                          </a>
+
                         </div>
                       </th>
                     </tr>
@@ -192,6 +199,9 @@
         <div class="flex justify-center py-10 px-4">
           <div class="w-full">
             <form method="POST">
+
+                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="mb-4">
                     <p class="font-semibold mb-1 text-gray-800">User Name</p>
@@ -230,6 +240,14 @@
         </div>
       </div>
     </dialog>
+
+    <script>
+      function showUserEditModal(userId){
+       const editeUserModal =  document.getElementById("edit_user_modal_2");
+       editeUserModal.showModal();
+       
+      }
+    </script>
 
     <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>
