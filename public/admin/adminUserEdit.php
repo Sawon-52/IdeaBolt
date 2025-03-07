@@ -1,6 +1,7 @@
 <?php
  include __DIR__ . "/../../includes/config.php";
  session_start();
+ include  "../../processes/fetch_all_users.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +81,7 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php foreach ($users as $user): ?> 
                     <!-- row 1 -->
                     <tr>
                       <td>
@@ -87,19 +89,19 @@
                           <div class="avatar">
                             <div class="mask mask-squircle h-12 w-12">
                               <img
-                                src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                src="<?php echo htmlspecialchars($user['profile_picture']); ?>"
                                 alt="Avatar Tailwind CSS Component" />
                             </div>
                           </div>
                           <div>
-                            <div class="font-bold">Mehedi Hasan</div>
+                            <div class="font-bold"><?php echo htmlspecialchars($user['username']); ?></div>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p>admin@gmail.com</p>
+                        <p><?php echo htmlspecialchars($user['email']); ?></p>
                       </td>
-                      <td>User</td>
+                      <td><?php echo htmlspecialchars($user['role']); ?></td>
                       <th>
                         <div>
                           <button class="btn btn-ghost btn-xs text-green-800" onclick="edit_user_modal_2.showModal()" >Edit</button>
@@ -107,33 +109,9 @@
                         </div>
                       </th>
                     </tr>
-                    <!-- row 1 -->
-                    <tr>
-                      <td>
-                        <div class="flex items-center gap-3">
-                          <div class="avatar">
-                            <div class="mask mask-squircle h-12 w-12">
-                              <img
-                                src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                alt="Avatar Tailwind CSS Component" />
-                            </div>
-                          </div>
-                          <div>
-                            <div class="font-bold">Mehedi Hasan</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p>admin@gmail.com</p>
-                      </td>
-                      <td>Admin</td>
-                      <th>
-                        <div>
-                          <button class="btn btn-ghost btn-xs text-green-800" onclick="edit_user_modal_2.showModal()">Edit</button>
-                          <button class="btn btn-ghost btn-xs text-red-800">Delete</button>
-                        </div>
-                      </th>
-                    </tr>
+
+                  <?php endforeach; ?>
+
                   </tbody>
                 </table>
               </div>
