@@ -132,21 +132,23 @@ include  "../../processes/update_user_profile.php";
               </div>
 
               <div class="grid grid-cols-1 gap-4">
-                
                 <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Upload Image</p>
                   <input type="file" name="profile_picture" value="<?php echo htmlspecialchars($user['profile_picture']); ?>" class="w-full px-4 py-3 rounded-lg border border-green-700 text-green-900 focus:outline-1 focus:border-indigo-500" />
                 </div>
               </div>
+
               <!-- Current Profile Picture (hidden field) -->
               <input type="hidden" name="existing_profile_picture" value="<?php echo htmlspecialchars($user['profile_picture']); ?>"> 
 
               <div class="mb-4">
                   <p class="font-semibold mb-1 text-gray-800">Bio</p>
-                  <textarea type="textarea" placeholder="Bio" name="bio" id="bio" value="<?php echo htmlspecialchars($user['bio']); ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" ></textarea>
+                  <textarea placeholder="Bio" name="bio" id="bio" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" ><?php echo htmlspecialchars($user['bio']); ?></textarea>
               </div>
+
               <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">update
               </button>
+
             </form>
           </div>
         </div>

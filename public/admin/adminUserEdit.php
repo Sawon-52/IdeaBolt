@@ -2,6 +2,7 @@
  include __DIR__ . "/../../includes/config.php";
  session_start();
  include  "../../processes/fetch_all_users.php";
+ include  "../../processes/create_user.php";
 //  include  "../../processes/delete_single_user.php";
 ?>
 <!DOCTYPE html>
@@ -164,7 +165,7 @@
                   </div>
                   <div class="mb-6 relative">
                     <p class="font-semibold mb-1 text-gray-800">Confirm Password</p>
-                    <input type="password" placeholder="password" id="password" name="password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
+                    <input type="password" placeholder="password" id="confirm_password" name="confirm_password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
 
                     <button id="showButton" type="button" class="absolute right-3 top-10 " >
                       <i class="fa-solid fa-eye" ></i>
@@ -177,8 +178,8 @@
                 <div class="mb-4">
                     <p class="font-semibold mb-1 text-gray-800">Role</p>
                     <div class="flex items-center gap-5">
-                    <p class="flex items-center gap-1"><input type="checkbox" name="admin" id="admin">Admin</p>
-                    <p class="flex items-center gap-1"><input type="checkbox" name="user" id="admin">User</p>
+                    <p class="flex items-center gap-1"><input type="checkbox" name="role[]" id="admin" value="admin">Admin</p>
+                    <p class="flex items-center gap-1"><input type="checkbox" name="role[]" id="user" value="user">User</p>
                     </div>
                 </div>
                 <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Save</button>
