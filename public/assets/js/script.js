@@ -62,3 +62,10 @@ function togglePanel() {
 }
 
 togglePanel();
+
+//  Server message removing fuctionality
+const cutMessage = document.getElementById("cut_message");
+const messageBox = document.getElementById("message_box");
+cutMessage.addEventListener("click", function () {
+  messageBox.classList.add("hidden");
+});
