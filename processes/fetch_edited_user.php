@@ -21,7 +21,7 @@ include __DIR__ . "/../includes/db.php";
     }
 
     $stmt->close();
-    }
+}
 
     $conn->close();
 

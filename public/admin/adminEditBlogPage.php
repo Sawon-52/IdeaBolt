@@ -1,7 +1,9 @@
 <?php
 session_start();
  include __DIR__ . "/../../includes/config.php";
- include __DIR__ . "/../../processes/fetch_blogs.php";
+ include __DIR__ . "/../../processes/fetch_categories.php";
+ include __DIR__ . "/../../processes/update_blog.php";
+
 $message = "";
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -9,6 +11,7 @@ if (isset($_SESSION['message'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +29,7 @@ if (isset($_SESSION['message'])) {
     <!-- custom css  -->
      <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/styles.css">
 
-    <title>Blogs || Admin </title>
+    <title> Edit blog  || Admin </title>
   </head>
   <body class="roboto">
 
@@ -38,8 +41,9 @@ if (isset($_SESSION['message'])) {
         </div>
 
         <div class="relative flex flex-col md:flex-row min-h-screen max-w-screen-xl mx-auto">
-           <!-- Display Message -->
-           <?php if ($message): ?>
+
+            <!-- Display Message -->
+            <?php if ($message): ?>
               <div id="message_box" class="flex justify-between items-center mb-4 p-4 absolute right-0 top-3 w-xs <?php echo strpos($message, 'successfully') !== false ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> rounded-lg">
                   <p><?php echo htmlspecialchars($message); ?></p>
                   <p id="cut_message" class="cursor-pointer">X</p>
@@ -76,58 +80,69 @@ if (isset($_SESSION['message'])) {
                 <i class="fa-solid fa-bars text-2xl" id="panel_menu"></i>
               </div>
               <input type="text">
-              <button class="bg-blue-500 text-white px-4 py-2 rounded"><a href="<?php echo BASE_URL; ?>public/admin/adminCreateBlogPage.php">Create Blog</a></button>
+              <a href="<?php echo BASE_URL; ?>public/admin/adminCreateBlogPage.php">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded">Create Blog</button>
+              </a>
             </header>
 
             <!-- Content -->
             <main class="p-6 h-[550px] overflow-y-auto overflow-x-auto " >
-              <h2 class="text-2xl font-semibold mb-4"> Manage Blog Posts</h2>
-              <div >
-                <table class="table">
-                  <!-- head -->
-                  <thead>
-                    <tr>
-                      <th>Image</th>
-                      <th>Title</th>
-                      <th>Category</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- row 1 -->
+              
+            <div class="container mx-auto p-4">
+              <h1 class="text-3xl font-bold text-center mb-8">Edit a Blog</h1>
+              <form  method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md">
 
-                    <?php foreach( $blogs as $blog): ?>
-                      <tr>
-                      <td>
-                        <div class="flex items-center gap-3">
-                          <div class="avatar">
-                            <div class="h-12 w-21 rounded-md">
-                              <img
-                                src="<?php echo htmlspecialchars($blog['featured_image']); ?>"
-                                alt="Avatar Tailwind CSS Component" />
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p><?php echo htmlspecialchars($blog['title']); ?></p>
-                      </td>
-                      <td><?php echo htmlspecialchars($blog['category_name']); ?></td>
-                      <th>
-                        <div>
-                       
-                          <a href="<?php echo BASE_URL; ?>public/admin/adminEditBlogPage.php?blog_id=<?php echo htmlspecialchars($blog['id']); ?>">
-                            <button class="btn btn-ghost btn-xs text-green-800">Edit</button>
-                          </a>
-                          <button class="btn btn-ghost btn-xs text-red-800">Delete</button>
-                        </div>
-                      </th>
-                    </tr>
-                    <?php endforeach;?>
-                    
-                  </tbody>
-                </table>
-              </div>
+                  
+                  
+                  <!-- Title -->
+                  <div class="mb-4">
+                      <label for="title" class="block text-gray-700 font-bold mb-2">Title</label>
+                      <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($blog['title']); ?>" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  </div>
+
+                  <!-- Slug -->
+                  <div class="mb-4">
+                      <label for="slug" class="block text-gray-700 font-bold mb-2">Slug</label>
+                      <input type="text" id="slug" name="slug" value="<?php echo htmlspecialchars($blog['slug']); ?>" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  </div>
+
+                  <!-- Description -->
+                  <div class="mb-4">
+                      <label for="description" class="block text-gray-700 font-bold mb-2">Description</label>
+                      <textarea id="description" name="description"  rows="3" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"><?php echo htmlspecialchars($blog['description']); ?></textarea>
+                  </div>
+
+                  <!-- Content -->
+                  <div class="mb-4">
+                      <label for="content" class="block text-gray-700 font-bold mb-2">Content</label>
+                      <textarea id="content" name="content" rows="10" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"><?php echo htmlspecialchars($blog['content']); ?></textarea>
+                  </div>
+
+                  <!-- Category -->
+                  <div class="mb-4">
+                      <label for="category" class="block text-gray-700 font-bold mb-2">Category</label>
+                      <select name="category_id" id="category_id"  class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <?php foreach($categories as $category): ?>
+                            <option value="<?php echo htmlspecialchars($blog['category_name']); ?>"><?php echo htmlspecialchars($category['name']); ?></option>
+                          <?php endforeach; ?> 
+                        </select>                    
+                  </div>
+                  <!-- Featured Image -->
+                  <div class="mb-4">
+                      <label for="featured_image" class="block text-gray-700 font-bold mb-2">Featured Image</label>
+                      <input type="file" id="featured_image" name="featured_image" value="<?php echo htmlspecialchars($blog['featured_image']); ?>" accept="image/*" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  </div>
+
+          
+                  <!-- Submit Button -->
+                  <div class="text-center">
+                      <button type="submit" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          Update Blog
+                      </button>
+                  </div>
+              </form>
+          </div>
+
             </main>
           </div>
         </div>
