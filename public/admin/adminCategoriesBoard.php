@@ -1,6 +1,8 @@
 <?php
+session_start();
  include __DIR__ . "/../../includes/config.php";
- session_start();
+ include  "../../processes/add_category.php";
+ include  "../../processes/fetch_categories.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,10 +41,10 @@
             </div>
             <ul>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminPanel.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Dashboard</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminProfileEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminProfileBoard.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminUserBoard.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Users</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminBlogsEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Blogs</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminCategoriesEdit.php" class="block p-2  bg-orange-500 rounded-sm hover:bg-orange-500">Categories</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminBlogsBoard.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Blogs</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminCategoriesBoard.php" class="block p-2  bg-orange-500 rounded-sm hover:bg-orange-500">Categories</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminContactShow.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Contact Info</a></li>
 
               <?php if (isset($_SESSION["user_id"])): ?>
@@ -63,53 +65,52 @@
                 <i class="fa-solid fa-bars text-2xl" id="panel_menu"></i>
               </div>
               <input type="text">
-              <button class="bg-blue-500 text-white px-4 py-2 rounded">Add Category</button>
+              <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="add_category_1.showModal()">Add Category</button>
             </header>
 
             <!-- Content -->
             <main class="p-6 min-h-[500px]" >
               <h2 class="text-2xl font-semibold mb-4">Category Management </h2>
-              <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                <table class="table">
-                  <!-- head -->
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Name</th>
-                      <th>Job</th>
-                      <th>Favorite Color</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- row 1 -->
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                    </tr>
-                    <!-- row 2 -->
-                    <tr>
-                      <th>2</th>
-                      <td>Hart Hagerty</td>
-                      <td>Desktop Support Technician</td>
-                      <td>Purple</td>
-                    </tr>
-                    <!-- row 3 -->
-                    <tr>
-                      <th>3</th>
-                      <td>Brice Swyre</td>
-                      <td>Tax Accountant</td>
-                      <td>Red</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              <?php foreach ($categories as $category): ?> 
+                <div class="flex justify-between items-center p-2 bg-gray-800 rounded-sm">
+                    <p class="text-white"> <?php echo htmlspecialchars($category['name']); ?></p>
+                    <a href="<?php echo BASE_URL; ?>processes/delete_category.php?cat_id=<?php echo $category['id']; ?> " onclick="return confirm('Are you sure you want to delete this Category?');" class=" text-white rounded-sm "> <button type="button" class="btn btn-ghost btn-xs text-red-500">delete</button></a>
+                </div>
+                <?php endforeach; ?>
               </div>
             </main>
+
           </div>
         </div>
       </div>
     </main>
+
+
+    <!-- add category modal -->
+    <dialog id="add_category_1" class="modal">
+      <div class="modal-box">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Add a New Category</h3>
+        <div class="flex justify-center py-10 px-4">
+          <div class="w-full">
+            <form method="POST">
+                <div class="grid grid-cols-1">
+                  <div class="mb-4">
+                    <p class="font-semibold mb-1 text-gray-800">Category Name</p>
+                    <input type="text" placeholder="category name" name="category_name" id="category_name" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
+                  </div>
+                  
+                </div>
+                <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Add</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
 
     <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>

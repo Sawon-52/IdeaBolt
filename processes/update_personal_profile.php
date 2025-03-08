@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssi", $username, $email, $bio, $file_path, $user_id);
 
     if ($stmt->execute()) {
-        header("Location:". BASE_URL."public/admin/adminProfileEdit.php");
+        header("Location:". BASE_URL."public/admin/adminProfileBoard.php");
         echo "Profile updated successfully!";
     } else {
         echo "Error updating profile: " . $stmt->error;

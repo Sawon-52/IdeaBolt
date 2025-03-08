@@ -1,7 +1,7 @@
 <?php
  include __DIR__ . "/../../includes/config.php";
  session_start();
- include  "../../processes/fetch_all_users.php";
+ include  "../../processes/fetch_users.php";
  include  "../../processes/create_user.php";
 //  include  "../../processes/delete_single_user.php";
 ?>
@@ -42,10 +42,10 @@
             </div>
             <ul>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminPanel.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900 ">Dashboard</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminProfileEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminProfileBoard.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminUserBoard.php" class="block p-2  bg-orange-500 rounded-sm hover:bg-orange-500">Users</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminBlogsEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Blogs</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminCategoriesEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Categories</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminBlogsBoard.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Blogs</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminCategoriesBoard.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Categories</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminContactShow.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Contact Info</a></li>
 
               <?php if (isset($_SESSION["user_id"])): ?>
@@ -111,7 +111,7 @@
                           <button type="button" class="btn btn-ghost btn-xs text-green-800">Edit</button>
                           </a>
                          
-                          <a href="<?php echo BASE_URL; ?>processes/delete_single_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">
+                          <a href="<?php echo BASE_URL; ?>processes/delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">
                           <button type="button" class="btn btn-ghost btn-xs text-red-800">Delete</button>
                           </a>
 
@@ -190,67 +190,6 @@
         </div>
       </div>
     </dialog>
-
-
-     <!-- user Edit modal -->
-     <dialog id="edit_user_modal_2" class="modal">
-      <div class="modal-box">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 class="text-lg font-bold">Edit User</h3>
-        <div class="flex justify-center py-10 px-4">
-          <div class="w-full">
-            <form method="POST">
-
-                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">User Name</p>
-                    <input type="text" placeholder="Name" name="name" id="name" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  </div>
-                  <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">User Email</p>
-                    <input type="email" placeholder="Email" name="email" id="email" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 gap-4">
-                  <div class="mb-6 relative">
-                    <p class="font-semibold mb-1 text-gray-800">Password</p>
-                    <input type="password" placeholder="Enter your password" id="password" name="password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-
-                    <button id="showButton" type="button" class="absolute right-3 top-10 " >
-                      <i class="fa-solid fa-eye" ></i>
-                    </button>
-                    <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
-                      <i class="fa-solid fa-eye-slash" ></i>
-                    </button>
-                  </div>
-                  
-                </div>
-                <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">Role</p>
-                    <div class="flex items-center gap-5">
-                    <p class="flex items-center gap-1"><input type="checkbox" name="admin" id="admin">Admin</p>
-                    <p class="flex items-center gap-1"><input type="checkbox" name="user" id="admin">User</p>
-                    </div>
-                </div>
-                <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Save</button>
-              </form>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
-    <script>
-      function showUserEditModal(userId){
-       const editeUserModal =  document.getElementById("edit_user_modal_2");
-       editeUserModal.showModal();
-       
-      }
-    </script>
 
     <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>

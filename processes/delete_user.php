@@ -22,6 +22,7 @@ if (isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     
     $stmt->close();
     $conn->close();
+    
     // Redirect back to the main page
     header("Location:".BASE_URL."public/admin/adminUserBoard.php"); // Replace with your main page URL
     exit();
