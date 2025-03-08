@@ -12,6 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST["confirm_password"];
     $selectedRole = $_POST["role"];
 
+      // Debug: Check the selected role
+      echo "Selected Role: " . $selectedRole . "<br>";
+
     // Validate input
     if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
         $error_message = "All fields are required!";
@@ -33,12 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Insert the new user into the database
-            $stmt = $conn->prepare("INSERT INTO users (username, email, hashed_password, role) VALUES (?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO users (username, email, hashed_password, role ) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("ssss", $name, $email, $hashed_password, $selectedRole);
 
             if ($stmt->execute()) {
                 // Redirect to the dashboard
-                header("Location:".BASE_URL."public/admin/adminUserEdit.php");
+                header("Location:".BASE_URL."public/admin/adminUserBoard.php");
                 exit();
             } else {
                 $error_message = "Error: " . $stmt->error;

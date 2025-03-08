@@ -1,9 +1,9 @@
 <?php
- include __DIR__ . "/../../includes/config.php";
  session_start();
- include  "../../processes/fetch_all_users.php";
- include  "../../processes/create_user.php";
-//  include  "../../processes/delete_single_user.php";
+ include __DIR__ . "/../../includes/config.php";
+ include  "../../processes/fetch_edited_user.php";
+ include  "../../processes/update_edited_user.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,7 @@
     <!-- custom css  -->
      <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/styles.css">
 
-    <title>users || Admin</title>
+    <title>Edit User || Admin</title>
   </head>
   <body class="roboto">
 
@@ -43,7 +43,7 @@
             <ul>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminPanel.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900 ">Dashboard</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminProfileEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Profile</a></li>
-              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminUserEdit.php" class="block p-2  bg-orange-500 rounded-sm hover:bg-orange-500">Users</a></li>
+              <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminUserBoard.php" class="block p-2  bg-orange-500 rounded-sm hover:bg-orange-500">Users</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminBlogsEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Blogs</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminCategoriesEdit.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Categories</a></li>
               <li class="mb-2"><a href="<?php echo BASE_URL; ?>public/admin/adminContactShow.php" class="block p-2 hover:bg-orange-200 rounded-sm hover:text-gray-900">Contact Info</a></li>
@@ -65,191 +65,47 @@
                 <i class="fa-solid fa-bars text-2xl" id="panel_menu"></i>
               </div>
               <input type="text">
-              <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="create_user_modal_1.showModal()">Create User</button>
+              <a href="<?php echo BASE_URL;?>public/admin/adminUserBoard.php">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded">Show All User</button>
+              </a>
             </header>
 
             <!-- Content -->
-            <main class="p-6 h-[550px] overflow-y-auto overflow-x-auto " >
-              <h2 class="text-2xl font-semibold mb-4"> User Administration </h2>
-              <div >
-                <table class="table">
-                  <!-- head -->
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach ($users as $user): ?> 
-                    <!-- row 1 -->
-                    <tr>
-                      <td>
-                        <div class="flex items-center gap-3">
-                          <div class="avatar">
-                            <div class="mask mask-squircle h-12 w-12">
-                              <img
-                                src="<?php echo htmlspecialchars($user['profile_picture']); ?>"
-                                alt="Avatar Tailwind CSS Component" />
-                            </div>
-                          </div>
-                          <div>
-                            <div class="font-bold"><?php echo htmlspecialchars($user['username']); ?></div>
-                          </div>
+            <main class="p-6 h-[550px] overflow-y-auto overflow-x-auto" >
+              <h2 class="text-2xl font-semibold mb-4">Edit <span class="mx-3"><?php echo htmlspecialchars($editUser['username']); ?>'s</span> Information  </h2>
+              <div class="flex justify-center py-10 px-4">
+                <div class="w-full md:w-md">
+                  <form method="POST">
+
+                      <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                          <p class="font-semibold mb-1 text-gray-800">User Name</p>
+                          <input type="text" placeholder="Name" name="name" id="name" value="<?php echo htmlspecialchars($editUser['username']); ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
                         </div>
-                      </td>
-                      <td>
-                        <p><?php echo htmlspecialchars($user['email']); ?></p>
-                      </td>
-                      <td><?php echo htmlspecialchars($user['role']); ?></td>
-                      <th>
-                        <div>
-                          <!-- <a href="?edit_id=<?php echo $user['id']; ?>" onclick="edit_user_modal_2.showModal()"> hlw</a> -->
-                          <button type="button" class="btn btn-ghost btn-xs text-green-800" onclick="showUserEditModal(<?php echo $user['id']; ?>)" >Edit </button>
-                         
-
-                          <a href="<?php echo BASE_URL; ?>processes/delete_single_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">
-                          <button type="button" class="btn btn-ghost btn-xs text-red-800">Delete</button>
-                          </a>
-
+                        <div class="mb-4">
+                          <p class="font-semibold mb-1 text-gray-800">User Email</p>
+                          <input type="email" placeholder="Email" name="email" id="email" value="<?php echo htmlspecialchars($editUser['email']); ?>" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
                         </div>
-                      </th>
-                    </tr>
-
-                  <?php endforeach; ?>
-
-                  </tbody>
-                </table>
+                      </div>
+                      <div class="mb-4">
+                        <p class="font-semibold mb-1 text-gray-800">Role</p>
+                        <select name="role" id="role" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500">
+                          <option value="user">User</option>
+                          <option value="admin">Admin</option>
+                          
+                        </select>
+                      </div>
+                      <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Save</button>
+                    </form>
+                </div>
               </div>
             </main>
           </div>
         </div>
       </div>
     </main>
-
-
-    <!-- create user modal -->
-    <dialog id="create_user_modal_1" class="modal">
-      <div class="modal-box">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 class="text-lg font-bold">Create A New User</h3>
-        <div class="flex justify-center py-10 px-4">
-          <div class="w-full">
-            <form method="POST">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">User Name</p>
-                    <input type="text" placeholder="Name" name="name" id="name" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  </div>
-                  <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">User Email</p>
-                    <input type="email" placeholder="Email" name="email" id="email" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="mb-6 relative">
-                    <p class="font-semibold mb-1 text-gray-800">Password</p>
-                    <input type="password" placeholder="Enter your password" id="password" name="password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-
-                    <button id="showButton" type="button" class="absolute right-3 top-10 " >
-                      <i class="fa-solid fa-eye" ></i>
-                    </button>
-                    <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
-                      <i class="fa-solid fa-eye-slash" ></i>
-                    </button>
-                  </div>
-                  <div class="mb-6 relative">
-                    <p class="font-semibold mb-1 text-gray-800">Confirm Password</p>
-                    <input type="password" placeholder="password" id="confirm_password" name="confirm_password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-
-                    <button id="showButton" type="button" class="absolute right-3 top-10 " >
-                      <i class="fa-solid fa-eye" ></i>
-                    </button>
-                    <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
-                      <i class="fa-solid fa-eye-slash" ></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">Role</p>
-                    <div class="flex items-center gap-5">
-                    <p class="flex items-center gap-1"><input type="checkbox" name="role[]" id="admin" value="admin">Admin</p>
-                    <p class="flex items-center gap-1"><input type="checkbox" name="role[]" id="user" value="user">User</p>
-                    </div>
-                </div>
-                <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Save</button>
-              </form>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
-
-     <!-- user Edit modal -->
-     <dialog id="edit_user_modal_2" class="modal">
-      <div class="modal-box">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 class="text-lg font-bold">Edit User</h3>
-        <div class="flex justify-center py-10 px-4">
-          <div class="w-full">
-            <form method="POST">
-
-                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">User Name</p>
-                    <input type="text" placeholder="Name" name="name" id="name" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  </div>
-                  <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">User Email</p>
-                    <input type="email" placeholder="Email" name="email" id="email" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 gap-4">
-                  <div class="mb-6 relative">
-                    <p class="font-semibold mb-1 text-gray-800">Password</p>
-                    <input type="password" placeholder="Enter your password" id="password" name="password" value="" class="w-full px-4 py-3 rounded-lg border border-gray-700 text-gray-900 focus:outline-1 focus:border-indigo-500" />
-
-                    <button id="showButton" type="button" class="absolute right-3 top-10 " >
-                      <i class="fa-solid fa-eye" ></i>
-                    </button>
-                    <button id="hideButton" class="absolute right-3 top-10  hidden " type="button">
-                      <i class="fa-solid fa-eye-slash" ></i>
-                    </button>
-                  </div>
-                  
-                </div>
-                <div class="mb-4">
-                    <p class="font-semibold mb-1 text-gray-800">Role</p>
-                    <div class="flex items-center gap-5">
-                    <p class="flex items-center gap-1"><input type="checkbox" name="admin" id="admin">Admin</p>
-                    <p class="flex items-center gap-1"><input type="checkbox" name="user" id="admin">User</p>
-                    </div>
-                </div>
-                <button type="submit" class="w-full py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-400 focus:outline-none">Save</button>
-              </form>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
-    <script>
-      function showUserEditModal(userId){
-       const editeUserModal =  document.getElementById("edit_user_modal_2");
-       editeUserModal.showModal();
-       
-      }
-    </script>
-
     <script src="<?php echo BASE_URL; ?>public/assets/js/script.js"></script>
   </body>
 </html>
