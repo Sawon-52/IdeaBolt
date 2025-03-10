@@ -44,7 +44,7 @@ ideaBolt is a fully-featured blog platform designed to provide a seamless experi
 | **HTML**       | Structure of the application  |
 | **Tailwind CSS**  | Styling and responsiveness  |
 | **JavaScript** | Frontend interactivity  |
-| **PHP**       | Backend logic and API  |
+| **PHP**       | Backend logic  |
 | **MySQL**     | Database management  |
 
 ---
