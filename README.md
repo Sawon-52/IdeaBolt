@@ -5,7 +5,7 @@ ideaBolt is a powerful and user-friendly full-stack blog platform that allows us
 ---
 
 ## 🔗 Repository Link  
-[GitHub Repository](#) *(Replace with your actual repository link)*  
+[GitHub Repository](https://github.com/Sawon-52/IdeaBolt) 
 
 ---
 
