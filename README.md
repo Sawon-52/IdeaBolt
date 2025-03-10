@@ -1,6 +1,6 @@
 # ideaBolt: A Complete Full-Stack Blog Platform! 🚀
 
-ideaBolt is a powerful and user-friendly full-stack blog platform that allows users to write, interact with, and manage blogs seamlessly. With secure authentication, an interactive user experience, and an admin dashboard, ideaBolt offers a complete blogging solution.
+ideaBolt is a fully-featured blog platform designed to provide a seamless experience for both users and administrators. Whether you're a blogger, reader, or admin, ideaBolt has everything you need to create, share, and manage content effortlessly.
 
 ---
 
