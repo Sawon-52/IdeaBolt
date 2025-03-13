@@ -2,7 +2,9 @@
 session_start();
  include __DIR__ . "/../../includes/config.php";
  include __DIR__ . "/../../processes/fetch_categories.php";
+ include __DIR__ . "/../../processes/fetch_blog.php";
  include __DIR__ . "/../../processes/update_blog.php";
+
 
 $message = "";
 if (isset($_SESSION['message'])) {
@@ -123,7 +125,8 @@ if (isset($_SESSION['message'])) {
                       <label for="category" class="block text-gray-700 font-bold mb-2">Category</label>
                       <select name="category_id" id="category_id"  class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                           <?php foreach($categories as $category): ?>
-                            <option value="<?php echo htmlspecialchars($blog['category_name']); ?>"><?php echo htmlspecialchars($category['name']); ?></option>
+                            <option value="<?php echo htmlspecialchars($category['id']); ?>" <?php if ($category['id'] == $blog['category_id']) echo 'selected'; ?>><?php echo htmlspecialchars($category['name']); ?>
+                            </option>
                           <?php endforeach; ?> 
                         </select>                    
                   </div>

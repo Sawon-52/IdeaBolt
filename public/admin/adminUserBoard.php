@@ -70,6 +70,7 @@
 
             <!-- Content -->
             <main class="p-6 h-[550px] overflow-y-auto overflow-x-auto " >
+            
               <h2 class="text-2xl font-semibold mb-4"> User Administration </h2>
               <div >
                 <table class="table">

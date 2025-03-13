@@ -119,7 +119,12 @@ if (isset($_SESSION['message'])) {
                           <a href="<?php echo BASE_URL; ?>public/admin/adminEditBlogPage.php?blog_id=<?php echo htmlspecialchars($blog['id']); ?>">
                             <button class="btn btn-ghost btn-xs text-green-800">Edit</button>
                           </a>
-                          <button class="btn btn-ghost btn-xs text-red-800">Delete</button>
+
+                          <a href="<?php echo BASE_URL;?>processes/delete_blog.php?blog_id=<?php echo $blog['id']; ?>" onclick="return confirm('Are you sure you want to delete this Blog?')">
+
+                             <button class="btn btn-ghost btn-xs text-red-800">Delete</button>
+                          </a>
+                          
                         </div>
                       </th>
                     </tr>

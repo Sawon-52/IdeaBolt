@@ -1,41 +1,58 @@
 <?php
-
 include __DIR__ . "/../includes/db.php";
+include __DIR__ . "/../includes/config.php";
 
-// Check if the user is logged in and is an admin
-if (isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'admin') {
-    if (isset($_GET['blog_id'])) {
-        $blog_id = $_GET['blog_id'];
 
-        // Fetch the specific blog post with its category name
-        $sql = "SELECT blogs.title, blogs.slug, blogs.description, blogs.content, blogs.featured_image, categories.name as category_name 
-                FROM blogs 
-                INNER JOIN categories ON blogs.category_id = categories.id 
-                WHERE blogs.id = ?";
-        $stmt = $conn->prepare($sql);
+// get blog_id from query params 
 
-        if ($stmt) {
-            $stmt->bind_param("i", $blog_id); // Bind the blog_id parameter
-            $stmt->execute();
-            $result = $stmt->get_result();
+   $blog_id = $_GET['blog_id'];
 
-            // Check if the blog post exists
-            if ($result->num_rows > 0) {
-                $blog = $result->fetch_assoc(); // Fetch the blog post data
-            } else {
-                die("Blog post not found.");
-            }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // Get form data
+    $title = $_POST['title'];
+    $slug = $_POST['slug'];
+    $description = $_POST['description'];
+    $content = $_POST['content'];
+    $category_id = $_POST['category_id']; // Get category_id from the form
+    $user_id = $_SESSION['user_id']; // Get user_id from the session
 
-            $stmt->close(); // Close the statement
+    // Handle featured image upload
+    if (isset($_FILES['featured_image']) && $_FILES['featured_image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../../uploads/';
+        $uploadFile = $uploadDir . basename($_FILES['featured_image']['name']);
+
+        // Move uploaded file to the uploads directory
+        if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadFile)) {
+            $featured_image = $uploadFile;
         } else {
-            die("Error preparing statement: " . $conn->error);
+            $_SESSION['message'] = "Failed to upload featured image.";
+            header("Location:". BASE_URL."public/admin/adminEditBlogPage.php?blog_id=$blog_id");
+            exit();
         }
     } else {
-        die("Blog ID not provided.");
+        $_SESSION['message'] = "No featured image uploaded or there was an error.";
+        header("Location:". BASE_URL."public/admin/adminCreateBlogPage.php?blog_id=$blog_id");
+        exit();
     }
-} else {
-    die("Access denied. You must be an admin to view this page.");
+
+     // Insert the new blog into the database
+     $sql = "UPDATE blogs SET title = ?, slug = ?, description= ?, content= ?, category_id= ?, featured_image= ? 
+            WHERE id = ?";
+     $stmt = $conn->prepare($sql);
+     $stmt->bind_param("ssssssi", $title, $slug, $description, $content, $category_id, $featured_image, $blog_id);
+
+     if ($stmt->execute()) {
+        $_SESSION['message'] = "successfully Update blog";
+        header("Location:". BASE_URL."public/admin/adminBlogsBoard.php");
+        exit();
+     } else {
+        $_SESSION['message'] = "Fail to Update blog " . $stmt->error;
+        header("Location:". BASE_URL."public/admin/adminEditBlogPage.php?blog_id=$blog_id");
+        exit();
+     }
+
+
 }
 
-$conn->close(); // Close the connection
 ?>
